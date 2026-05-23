@@ -54,11 +54,11 @@ export default function storeReducer(store, action = {}) {
 
     case 'remove_like':
 
-      const { pokemonName } = action.payload;
+      const { pokemon } = action.payload;
 
       return {
         ...store,
-        likes: store.likes.filter( item => item != pokemonName )
+        likes: store.likes.filter( item => item != pokemon )
       }
 
       

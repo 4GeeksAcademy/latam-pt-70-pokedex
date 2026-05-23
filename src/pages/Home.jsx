@@ -11,12 +11,12 @@ const capitalize = (name) => {
 }
 
 const PokemonCard = (props) => {
-
-
-  const { dispatch } = useGlobalReducer();
+  const { store, dispatch } = useGlobalReducer();
 
   const pokedexNumber = props.id;
   const pokemonName = capitalize(props.name);
+
+  const isLiked = store.likes.includes(pokemonName);
 
   return <div className="col-12 col-sm-6 col-md-4 col-lg-4  p-3">
 		<div className="card">
@@ -31,16 +31,16 @@ const PokemonCard = (props) => {
 				  Detalles
 				</Link>
 
-        <button className="btn btn-danger mx-2"
+        <button className={ isLiked ? "btn btn-outline-danger mx-2" : "btn btn-danger mx-2"}
           onClick={() => dispatch({
             type: "add_like",
             payload: { pokemonName } 
           })}
         >
           <span className="mx-1">
-            Like
+            { isLiked ? "Liked" : "Like"}
           </span>
-          <i class="fa-solid fa-heart"></i>
+          <i className={"fa-solid fa-heart " + (isLiked ? 'text-danger-emphasis' : '' ) }></i>
         </button>
 			
       </div>
