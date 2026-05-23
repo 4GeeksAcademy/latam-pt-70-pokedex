@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import useGlobalReducer from "../hooks/useGlobalReducer";
+
 const pokemonImage = (pokemonNumber) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonNumber}.svg`;
 
 const capitalize = (name) => {
@@ -9,6 +11,9 @@ const capitalize = (name) => {
 }
 
 const PokemonCard = (props) => {
+
+
+  const { dispatch } = useGlobalReducer();
 
   const pokedexNumber = props.id;
   const pokemonName = capitalize(props.name);
@@ -25,6 +30,18 @@ const PokemonCard = (props) => {
 				<Link to={"/pokemon/" + pokedexNumber } className="btn btn-primary">
 				  Detalles
 				</Link>
+
+        <button className="btn btn-danger mx-2"
+          onClick={() => dispatch({
+            type: "add_like",
+            payload: { pokemonName } 
+          })}
+        >
+          <span className="mx-1">
+            Like
+          </span>
+          <i class="fa-solid fa-heart"></i>
+        </button>
 			
       </div>
 		</div>
